@@ -16,7 +16,7 @@
     "contributes": {
         "commands":[
             {
-                "command": "words750.new",
+                "command": "words750.today",
                 "title": "Write 750 words today!"
             }
         ],
@@ -24,7 +24,7 @@
             {
                 "title": "750 words configuration",
                 "properties": {
-                    "words750.path": {
+                    "rootPath": {
                         "description": "local path to save 750 words!",
                         "type":"string",
                         "default":"/Users/admin/.words750/"

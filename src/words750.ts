@@ -5,30 +5,26 @@ import * as mdfp from 'node-mkdirfilep';
 export function activate(ctx: ExtensionContext) {
 
     // create a new word counter
-     const wordCounter = new WordCounter();
+    const wordCounter = new WordCounter();
     const controller = new WordCounterController(wordCounter);
 
     // open the words750 project file 
     const open = commands.registerCommand('words750.open', () => {
         // get the root path
-        const rootPath: string = workspace.getConfiguration().get('rootPath')
+        const rootPath: string = workspace.getConfiguration().get('rootPath');
         // open project in a new window
-        commands.executeCommand("vscode.openFolder", Uri.file( rootPath ), true)
-        
+        commands.executeCommand("vscode.openFolder", Uri.file( rootPath ), true);
     })
 
     const today = commands.registerCommand('words750.today', () => {
-        // const date = getDate();
-        const today = new Date()
-        const year = today.getFullYear()
-        const month = today.getMonth()
-        const day = today.getDate()
-        const rootPath = workspace.getConfiguration().get('rootPath')
-        const filePath = `${rootPath}/${year}/${month}/${day}.words750.txt`;
+        const today = new Date();
+        const rootPath = workspace.getConfiguration().get('rootPath');
+        const filePath = `${rootPath}/${today.getFullYear()}/${today.getMonth()}/${today.getDate()}.words750.txt`;
+        // create the file... if it don't exist
         if( ! fs.existsSync(filePath) ){
-            // create the file... if it don't exist
-            mdfp.create(filePath)
+            mdfp.create(filePath);
         }
+        // open file 
         workspace.openTextDocument( Uri.file( filePath ) )
             .then( (doc) => {
                 window.showTextDocument(doc);
@@ -39,36 +35,6 @@ export function activate(ctx: ExtensionContext) {
     ctx.subscriptions.push(open);
     ctx.subscriptions.push(controller);
     ctx.subscriptions.push(wordCounter);
-}
-
-/**
- * Returns the page for a day with the given offset. If the page doesn't exist yet, it will be created (with the current date as header) 
- * @param {number} offset - 0 is today, -1 is yesterday
- */
-const getPagePath = (date) => {
-
-    const rootPath = `/Users/admin/.words750`
-    return `${rootPath}/${date}.words750.txt`;
-}
-
-const getDate = () => {
-    var today = new Date();
-    var dd = today.getDate()
-    var mm = today.getMonth()+1; //January is 0!
-    var yyyy = today.getFullYear();
-    
-    // if(dd<10) {
-    //     const dds = '0'+ dd.toString()
-    // } 
-    
-    // if(mm<10) {
-    //     const mms = '0'+ mm.toString()
-    // } 
-    
-    console.log('`${yyyy}-${mm}-${dd}`;', `${yyyy}-${mm}-${dd}`)
-    return `${yyyy}-${mm}-${dd}`;    
-    
-
 }
 
 export class WordCounter {
@@ -90,24 +56,26 @@ export class WordCounter {
         }
 
         let doc = editor.document;
-        // Only update status if an MD file
-        // only if file name ends with .words750.txt
         if (doc.languageId === "plaintext" && doc.fileName.endsWith('.words750.txt')) {
+            // only update if file name ends with .words750.txt
             let wordCount = this._getWordCount(doc);
-
-            // doc.fileName
-            console.log('doc.fileName', doc.fileName)
-            // Update the status bar
-            const percentage = ( wordCount / 750 * 100 ).toFixed(1)
+            const percentage = ( wordCount / 750 * 100 ).toFixed(1);
             this._statusBarItem.text = ` ${percentage} % - ${wordCount} / 750 Words`;
             this._statusBarItem.show();
         } else {
-            // make this a button 
-            // open todays page on click 
+            // IDEA: logged by salapati @ 2017-10-16 09:42:13
+            // only show if today's 750 is not completely written
+
+            // IDEA: logged by admin @ 2017-10-16 10:24:21
+            // show percentage if not completely done.
             this._statusBarItem.text = `750 Words`;
-            this._statusBarItem.show();
+            this._statusBarItem.hide();
+            
         }
     }
+
+    // IDEA: logged by admin @ 2017-10-16 09:42:58
+    // show a propt first time vscode is launched in a day 
 
     public _getWordCount(doc: TextDocument): number {
         let docContent = doc.getText();

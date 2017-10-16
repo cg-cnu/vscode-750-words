@@ -1,25 +1,32 @@
 import {window, Uri, workspace, commands, Disposable, ExtensionContext, StatusBarAlignment, StatusBarItem, TextDocument} from 'vscode';
 import * as fs from 'fs';
+import * as mdfp from 'node-mkdirfilep';
 
 export function activate(ctx: ExtensionContext) {
 
     // create a new word counter
     const wordCounter = new WordCounter();
     const controller = new WordCounterController(wordCounter);
+
     const today = commands.registerCommand('words750.today', () => {
-        const date = getDate();
+        // const date = getDate();
+        const today = new Date()
+        const year = today.getFullYear()
+        const month = today.getMonth()
+        const day = today.getDate()
         const rootPath = workspace.getConfiguration().get('rootPath')
-        const filePath = `${rootPath}/${date}.words750.txt`;
+        const filePath = `${rootPath}/${year}/${month}/${day}.words750.txt`;
         if( ! fs.existsSync(filePath) ){
-            // fs.f
-            // create the file...
+            // create the file... if it don't exist
+            // fs.closeSync(fs.openSync(filePath, 'a'))
+            mdfp.create(filePath)
         }
         workspace.openTextDocument( Uri.file( filePath ) )
             .then( (doc) => {
                 window.showTextDocument(doc);
-            })        
+            })
     })
-    
+
     ctx.subscriptions.push(today);
     ctx.subscriptions.push(controller);
     ctx.subscriptions.push(wordCounter);

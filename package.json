@@ -5,29 +5,29 @@
     "version": "0.0.1",
     "publisher": "cg-cnu",
     "engines": {
-        "vscode": "^1.17.0"
+        "vscode": "^1.17.0" 
     },
     "categories": [
         "Other"
     ],
-	"activationEvents": [
-		"*"
+    "activationEvents": [
+        "*"
     ],
     "contributes": {
-        "commands":[
+        "commands": [
             {
                 "command": "words750.today",
                 "title": "Write 750 words today!"
             }
         ],
-        "configuration":[
+        "configuration": [
             {
                 "title": "750 words configuration",
                 "properties": {
                     "rootPath": {
                         "description": "local path to save 750 words!",
-                        "type":"string",
-                        "default":"/Users/admin/.words750/"
+                        "type": "string",
+                        "default": "/Users/admin/.words750/"
                     }
                 }
             }
@@ -46,5 +46,8 @@
         "vscode": "^1.1.5",
         "@types/node": "^7.0.43",
         "@types/mocha": "^2.2.42"
+    },
+    "dependencies": {
+        "node-mkdirfilep": "0.0.2"
     }
 }

@@ -1,7 +1,7 @@
 {
     "name": "vscode-750-words",
-    "displayName": "vscode-750-words",
-    "description": "750 words reminder...",
+    "displayName": "750 words",
+    "description": "Write morning pages in vscode...",
     "version": "0.0.1",
     "publisher": "cg-cnu",
     "engines": {
@@ -10,18 +10,42 @@
     "categories": [
         "Other"
     ],
+    "author": {
+        "email": "sreenivas9alapati@gmail.com",
+        "name": "Sreenivas Alapati",
+        "url": "https://twitter.com/cgcnu"
+    },
+    "bugs": {
+        "email": "sreenivas9alapati@gmail.com",
+        "url": "https://github.com/cg-cnu/vscode-750-words/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/cg-cnu/vscode-750-words"
+    },
+    "readme": "README.md",
+    "license": "MIT",
+    "keywords": [
+        "morning",
+        "pages",
+        "words",
+        "750"
+    ],
+    "homepage": "https://github.com/cg-cnu/vscode-750-words",
+    "icon": "icons/750-words-128.png",
     "activationEvents": [
-        "*"
+        "onCommand:words750.today",
+        "onCommand:words750.open"
     ],
     "contributes": {
         "commands": [
             {
                 "command": "words750.today",
-                "title": "Write 750 words today!"
+                "title": "750 Words: Write today!"
             },
             {
                 "command": "words750.open",
-                "title": "Open all pages!"
+                "title": "750 Words: Open project."
             }
         ],
         "configuration": [
@@ -29,9 +53,9 @@
                 "title": "750 words configuration",
                 "properties": {
                     "rootPath": {
-                        "description": "local path to save 750 words!",
+                        "description": "local path to save 750 word files",
                         "type": "string",
-                        "default": "/Users/admin/.words750/"
+                        "default": ""
                     }
                 }
             }

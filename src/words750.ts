@@ -1,6 +1,15 @@
-import {window, Uri, workspace, commands, Disposable, ExtensionContext, StatusBarAlignment, StatusBarItem, TextDocument} from 'vscode';
+import { window, Uri, workspace, commands, Disposable, ExtensionContext, StatusBarAlignment, StatusBarItem, TextDocument } from 'vscode';
 import * as fs from 'fs';
 import * as mdfp from 'node-mkdirfilep';
+import * as path from 'path';
+
+function getRootPath() {
+    var config: string = workspace.getConfiguration().get('rootPath');
+    if( !config){
+        config = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+    }
+    return path.join(config, '.words750');
+}
 
 export function activate(ctx: ExtensionContext) {
 
@@ -10,23 +19,23 @@ export function activate(ctx: ExtensionContext) {
 
     // open the words750 project file 
     const open = commands.registerCommand('words750.open', () => {
-        // get the root path
-        const rootPath: string = workspace.getConfiguration().get('rootPath');
         // open project in a new window
-        commands.executeCommand("vscode.openFolder", Uri.file( rootPath ), true);
+        commands.executeCommand("vscode.openFolder", Uri.file(getRootPath()), true);
     })
 
     const today = commands.registerCommand('words750.today', () => {
+        // get file path
         const today = new Date();
-        const rootPath = workspace.getConfiguration().get('rootPath');
-        const filePath = `${rootPath}/${today.getFullYear()}/${today.getMonth()}/${today.getDate()}.words750.txt`;
+        const path = `${getRootPath()}/${today.getFullYear()}/${today.getMonth()}`;
+        const name = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}.words750.txt`;
+        const filePath = `${path}/${name}`;
         // create the file... if it don't exist
-        if( ! fs.existsSync(filePath) ){
+        if (!fs.existsSync(filePath)) {
             mdfp.create(filePath);
         }
         // open file 
-        workspace.openTextDocument( Uri.file( filePath ) )
-            .then( (doc) => {
+        workspace.openTextDocument(Uri.file(filePath))
+            .then((doc) => {
                 window.showTextDocument(doc);
             })
     })
@@ -42,11 +51,11 @@ export class WordCounter {
     private _statusBarItem: StatusBarItem;
 
     public updateWordCount() {
-        
+
         // Create as needed
         if (!this._statusBarItem) {
             this._statusBarItem = window.createStatusBarItem(StatusBarAlignment.Left);
-        } 
+        }
 
         // Get the current text editor
         let editor = window.activeTextEditor;
@@ -59,18 +68,17 @@ export class WordCounter {
         if (doc.languageId === "plaintext" && doc.fileName.endsWith('.words750.txt')) {
             // only update if file name ends with .words750.txt
             let wordCount = this._getWordCount(doc);
-            const percentage = ( wordCount / 750 * 100 ).toFixed(1);
+            const percentage = (wordCount / 750 * 100).toFixed(1);
             this._statusBarItem.text = ` ${percentage} % - ${wordCount} / 750 Words`;
             this._statusBarItem.show();
         } else {
             // IDEA: logged by salapati @ 2017-10-16 09:42:13
             // only show if today's 750 is not completely written
+            // show percentage next to it.
 
-            // IDEA: logged by admin @ 2017-10-16 10:24:21
-            // show percentage if not completely done.
-            this._statusBarItem.text = `750 Words`;
+            // this._statusBarItem.text = ` 25 % 750 Words`;
             this._statusBarItem.hide();
-            
+
         }
     }
 

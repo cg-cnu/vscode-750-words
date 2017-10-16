@@ -5,8 +5,17 @@ import * as mdfp from 'node-mkdirfilep';
 export function activate(ctx: ExtensionContext) {
 
     // create a new word counter
-    const wordCounter = new WordCounter();
+     const wordCounter = new WordCounter();
     const controller = new WordCounterController(wordCounter);
+
+    // open the words750 project file 
+    const open = commands.registerCommand('words750.open', () => {
+        // get the root path
+        const rootPath: string = workspace.getConfiguration().get('rootPath')
+        // open project in a new window
+        commands.executeCommand("vscode.openFolder", Uri.file( rootPath ), true)
+        
+    })
 
     const today = commands.registerCommand('words750.today', () => {
         // const date = getDate();
@@ -18,7 +27,6 @@ export function activate(ctx: ExtensionContext) {
         const filePath = `${rootPath}/${year}/${month}/${day}.words750.txt`;
         if( ! fs.existsSync(filePath) ){
             // create the file... if it don't exist
-            // fs.closeSync(fs.openSync(filePath, 'a'))
             mdfp.create(filePath)
         }
         workspace.openTextDocument( Uri.file( filePath ) )
@@ -28,6 +36,7 @@ export function activate(ctx: ExtensionContext) {
     })
 
     ctx.subscriptions.push(today);
+    ctx.subscriptions.push(open);
     ctx.subscriptions.push(controller);
     ctx.subscriptions.push(wordCounter);
 }

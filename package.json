@@ -18,6 +18,10 @@
             {
                 "command": "words750.today",
                 "title": "Write 750 words today!"
+            },
+            {
+                "command": "words750.open",
+                "title": "Open all pages!"
             }
         ],
         "configuration": [

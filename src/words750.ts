@@ -4,7 +4,7 @@ import * as mdfp from 'node-mkdirfilep';
 import * as path from 'path';
 
 function getRootPath() {
-    var config: string = workspace.getConfiguration().get('rootPath');
+    var config: string = workspace.getConfiguration().get('words750.path');
     if( !config){
         config = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
     }
@@ -71,19 +71,14 @@ export class WordCounter {
             const percentage = (wordCount / 750 * 100).toFixed(1);
             this._statusBarItem.text = ` ${percentage} % - ${wordCount} / 750 Words`;
             this._statusBarItem.show();
-        } else {
-            // IDEA: logged by salapati @ 2017-10-16 09:42:13
-            // only show if today's 750 is not completely written
-            // show percentage next to it.
-
-            // this._statusBarItem.text = ` 25 % 750 Words`;
-            this._statusBarItem.hide();
-
         }
+        // IDEA: logged by salapati @ 2017-10-16 09:42:13
+        // only show if today's 750 is not completely written
+        // show percentage next to it.
     }
 
     // IDEA: logged by admin @ 2017-10-16 09:42:58
-    // show a propt first time vscode is launched in a day 
+    // show a propt first time vscode is launched in a day ?
 
     public _getWordCount(doc: TextDocument): number {
         let docContent = doc.getText();

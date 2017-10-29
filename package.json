@@ -41,18 +41,18 @@
         "commands": [
             {
                 "command": "words750.today",
-                "title": "750 Words: Write today!"
+                "title": "750 Words: Write today"
             },
             {
                 "command": "words750.open",
-                "title": "750 Words: Open project."
+                "title": "750 Words: Open project"
             }
         ],
         "configuration": [
             {
                 "title": "750 words configuration",
                 "properties": {
-                    "rootPath": {
+                    "words750.path": {
                         "description": "local path to save 750 word files",
                         "type": "string",
                         "default": ""

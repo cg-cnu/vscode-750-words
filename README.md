@@ -17,6 +17,8 @@
 
 * Write 750 words from vscode
 * Track the progress of daily writing
+* Change your pages location by setting ` {words750.path : "/path/to/your/folder"} `
+* Defaults to .words750 in user home directory
 
 ## Inspiration:
 

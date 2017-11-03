@@ -78,7 +78,7 @@ export class WordCounter {
     }
 
     // IDEA: logged by admin @ 2017-10-16 09:42:58
-    // show a propt first time vscode is launched in a day ?
+    // show a prompt first time vscode is launched in a day ?
 
     public _getWordCount(doc: TextDocument): number {
         let docContent = doc.getText();

@@ -3,5 +3,7 @@ All notable changes to the "y" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+## [0.0.1]
 - Initial release
+- Implemented basic features for wrting 750 words
+- Check progress based on the word count

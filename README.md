@@ -16,11 +16,10 @@
 ## Features:
 
 * Write 750 words from vscode
-* Track the progress of daily writing
-* Change your pages location by setting ` {words750.path : "/path/to/your/folder"} `
-* Defaults to .words750 in user home directory
+* Change your page location by setting ` {words750.path : "/path/to/your/folder"} `
+* Defaults to `.words750` in user home directory
 
-## Inspiration:
+## Inspiration/Credits:
 
 * [750words.com](http://750words.com/)
 * [Word Count](https://github.com/Microsoft/vscode-wordcount)

@@ -7,11 +7,9 @@
 
 ## Description:
 
-**750 Words** is inspired by a concept called **morning pages** described in [The Artist's Way](https://en.wikipedia.org/wiki/The_Artist%27s_Way). The idea behind morning pages is to write 3 pages every morning which roughly equals to 750 words. You can read more about it [here](http://750words.com/)
+**750 Words** is inspired by a concept called **morning pages** described in [The Artist's Way](https://en.wikipedia.org/wiki/The_Artist%27s_Way). The idea behind morning pages is to write 3 pages every morning which roughly equals to 750 words. You can read more about it [here](https://750words.com/)
 
 ## Demo:
-
-<img src=""></img>
 
 ## Features:
 
@@ -21,7 +19,7 @@
 
 ## Inspiration/Credits:
 
-* [750words.com](http://750words.com/)
+* [750words.com](https://750words.com/)
 * [Word Count](https://github.com/Microsoft/vscode-wordcount)
 
 ### Issue/Feedback:
